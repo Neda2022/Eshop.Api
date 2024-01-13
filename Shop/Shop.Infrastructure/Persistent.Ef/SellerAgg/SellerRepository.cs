@@ -1,5 +1,4 @@
-﻿using Shop.Domain.Entities;
-using Shop.Domain.Entities.SellerAgg;
+﻿using Shop.Domain.Entities.SellerAgg;
 using Shop.Domain.Entities.SellerAgg.Repository;
 using Shop.Infrastructure._Utilities;
 using System;

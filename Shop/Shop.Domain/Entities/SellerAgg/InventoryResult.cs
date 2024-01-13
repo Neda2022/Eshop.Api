@@ -1,4 +1,4 @@
-﻿namespace Shop.Domain.Entities
+﻿namespace Shop.Domain.Entities.SellerAgg
 {
     public class InventoryResult
     {
