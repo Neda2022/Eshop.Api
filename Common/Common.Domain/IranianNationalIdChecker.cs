@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-
+using Common.Domain;
 public class IranianNationalIdChecker
 {
     public static bool IsValid(string nationalId)
