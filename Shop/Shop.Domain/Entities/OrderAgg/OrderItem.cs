@@ -5,7 +5,7 @@ namespace Shop.Domain.Entities.OrderAgg;
 
 public class OrderItem:BaseEntity
 {
-    public OrderItem( long inventoryId, int count, int price)
+    public OrderItem(long inventoryId, int count, int price)
     {
         PriceGuard(price);
         CountGuard(count);

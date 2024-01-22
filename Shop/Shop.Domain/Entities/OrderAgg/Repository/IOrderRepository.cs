@@ -9,6 +9,7 @@ namespace Shop.Domain.Entities.OrderAgg.Repository;
 
     public interface IOrderRepository:IBaseRepository<Order>
     {
+    //سفارشی که هنوز فاینالی نشده و هنوز فعاله
      Task<Order> GetCurrentUserOrder(long UserId);
     }
 

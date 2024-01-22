@@ -45,11 +45,21 @@ public class Order:AggregateRoot
 
     public void AddItem(OrderItem item)
     {
+        ChangeOrderGuard();
+        // اگر سفارش درخواستی در سبد خرید از قبل وجود داشت دیگه نباید بزاریم  
+        var oldItem = Items.FirstOrDefault(f => f.InventoryId == item.InventoryId);
+        if(oldItem!= null)
+        {
+            oldItem.ChangeCount(item.Count + oldItem.Count);
+            return;
+        }
+
         Items.Add(item);
     }
 
     public void RemoveItem(long itemId)
     {
+        ChangeOrderGuard();
         var currentItem = Items.FirstOrDefault(f => f.Id == itemId);
         if(currentItem!= null)
         {
@@ -59,6 +69,7 @@ public class Order:AggregateRoot
     }
     public void ChangeCountItem(long itemId, int newCount)
     {
+        ChangeOrderGuard();
         var currentItem = Items.FirstOrDefault(f => f.Id == itemId);
         if (currentItem == null)
             throw new NullOrEmtyDomainDataException();
@@ -71,9 +82,15 @@ public class Order:AggregateRoot
     }
     public void CheckOut(OrderAddress orderAddress)//   سبد خرید و آدر و نحوه ارسال انتخاب کردیم و نوبت پرداخت است
     {
-
+        ChangeOrderGuard();
         Address = orderAddress;
         //نحوه ارسال آدرس
         
+    }
+    //در چه صورتی امکان تغییر سفارش وجود دارد
+    public void ChangeOrderGuard()
+    {
+        if (Status != OrderStatus.Pending)
+            throw new InvalidDomainDataException("امکان ثبت محصول در این سفارش وجود ندارد");
     }
 } 
