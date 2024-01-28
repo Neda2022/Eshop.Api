@@ -15,10 +15,12 @@ public class CreateProductCommandHandler : IBaseCommandHandler<CreateProductComm
    private readonly IProductDomainService _domainService;
     private readonly IFileService _fileSercvice;
     internal CreateProductCommandHandler(IProductRepository repository,
-        IProductDomainService domainService)
+        IProductDomainService domainService,
+        IFileService fileSercvice)
     {
         _repository = repository;
         _domainService = domainService;
+        _fileSercvice = fileSercvice;
     }
 
     public async Task<OperationResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)

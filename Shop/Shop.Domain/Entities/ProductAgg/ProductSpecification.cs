@@ -10,12 +10,12 @@ public class ProductSpecification : BaseEntity
         NullOrEmtyDomainDataException.CheckString(key, nameof(key));
         NullOrEmtyDomainDataException.CheckString(value, nameof(value));
 
-        this.key = key;
+        this.Key = key;
         Value = value;
     }
 
     public long ProductId { get; internal set; }
-    public string key { get; private set; }
+    public string Key { get; private set; }
     public string Value { get; private set; }
 
 

@@ -30,6 +30,7 @@ public class Product:AggregateRoot
     public List<ProductSpecification> Specifications { get; private set; }
 
     public Product(
+
        string title,
        string imageName,
        string description,
@@ -40,10 +41,11 @@ public class Product:AggregateRoot
        SeoData seoData,
        IProductDomainService domainService)
     {
-        Guard(title, slug, imageName, description, domainService);
+        NullOrEmtyDomainDataException.CheckString(imageName, nameof(imageName));
+
+        Guard(title, slug,  description, domainService);
 
         Title = title;
-        ImageName = imageName;
         Description = description;
         CategoryId = categoryId;
         SubCategoryId = subCategoryId;
@@ -54,7 +56,7 @@ public class Product:AggregateRoot
 
     public void Edit(
       string title,
-      string imageName,
+     
       string description,
       long categoryId,
       long subCategoryId,
@@ -63,9 +65,9 @@ public class Product:AggregateRoot
       SeoData seoData,
       IProductDomainService domainService)
     {
-        Guard(title,slug,imageName,description,domainService);
+        Guard(title,slug,description,domainService);
         Title = title;
-        ImageName = imageName;
+      
         Description = description;
         CategoryId = categoryId;
         SubCategoryId = subCategoryId;
@@ -74,7 +76,16 @@ public class Product:AggregateRoot
         SeoData = seoData;
     }
 
-     public void AddImage(ProductImage image)
+    public void SetProductImage(string imageName) 
+    {
+
+        NullOrEmtyDomainDataException.CheckString(imageName, nameof(imageName));
+        ImageName = imageName;
+
+    }
+
+
+    public void AddImage(ProductImage image)
     {
         image.ProductId = Id;
         Images.Add(image);
@@ -93,10 +104,9 @@ public class Product:AggregateRoot
         specifications.ForEach(s => s.ProductId = Id);
         Specifications= specifications; 
     }
-    public void Guard(string title,string slug,string imageName, string description,IProductDomainService domainService)
+    public void Guard(string title,string slug, string description,IProductDomainService domainService)
     {
         NullOrEmtyDomainDataException.CheckString(title, nameof(title));
-        NullOrEmtyDomainDataException.CheckString(imageName, nameof(imageName));
         NullOrEmtyDomainDataException.CheckString(description, nameof(description));
         if(slug != Slug)
             if(domainService.SlugIsExist(slug.ToSlug()))
