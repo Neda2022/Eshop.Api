@@ -1,5 +1,6 @@
 ﻿using Common.Domain;
 using Common.Domain.Exceptions;
+using Shop.Domain.Entities.SellerAgg.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,19 @@ public class Seller:AggregateRoot
     {
         
     }
-    public Seller(long userId, string shopName, string nationalCode)
+    public Seller(long userId, string shopName,
+        string nationalCode, ISellerDomainService domainService)
     {
         Guard(shopName, nationalCode);
-
+        
         UserId = userId;
         ShopName = shopName;
         NationalCode = nationalCode;
         Inventories = new List<SellerInventory>();
+        if (domainService.CheckSellerInfo(this) == false)
+            throw new InvalidDomainDataException("اطلاعات نامعتبر است");
+        
+
     }
 
     public long UserId { get; private set; }
@@ -35,11 +41,15 @@ public class Seller:AggregateRoot
         Status = status;
         LastUpdate=DateTime.Now;
     }
-    public void Edit(string shopName, string nationalCode)
+    public void Edit(string shopName, string nationalCode
+        , ISellerDomainService domainService)
     {
         Guard(shopName,nationalCode);
+        if (domainService.IsNationalCodeExistInDatabase(nationalCode))
+            throw new InvalidDomainDataException("کد ملی متعلق به شخص دیگری است");
         ShopName = shopName;
         NationalCode = nationalCode;
+
     }
     public void AddInventory(SellerInventory inventory)
     {
