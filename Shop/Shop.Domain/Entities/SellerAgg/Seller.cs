@@ -36,12 +36,8 @@ public class Seller:AggregateRoot
     public SellerStatus Status { get; private set; }
     public List<SellerInventory> Inventories { get; private set; }
     public DateTime? LastUpdate { get; private set; }
-    public void ChangeStatus(SellerStatus status)
-    {
-        Status = status;
-        LastUpdate=DateTime.Now;
-    }
-    public void Edit(string shopName, string nationalCode
+   
+    public void Edit(string shopName,SellerStatus status ,string nationalCode
         , ISellerDomainService domainService)
     {
         Guard(shopName,nationalCode);
@@ -49,6 +45,7 @@ public class Seller:AggregateRoot
             throw new InvalidDomainDataException("کد ملی متعلق به شخص دیگری است");
         ShopName = shopName;
         NationalCode = nationalCode;
+        Status = status;
 
     }
     public void AddInventory(SellerInventory inventory)
@@ -57,25 +54,17 @@ public class Seller:AggregateRoot
             throw new InvalidDomainDataException("این محصول قبلا ثبت شده است!");
         Inventories.Add(inventory);
     }
-    public void EditInventory(SellerInventory newInventory)
-    {
-        var currentInventory = Inventories.FirstOrDefault(f => f.Id == newInventory.Id);
-
-        if (currentInventory == null)
-            return;
-        Inventories.Remove(currentInventory);
-        Inventories.Add(currentInventory);
-
-    }
-    public void DeletInventory(long inventoryId)
+    public void EditInventory(long inventoryId, int count , int price , int? percentageCount)
     {
         var currentInventory = Inventories.FirstOrDefault(f => f.Id == inventoryId);
 
         if (currentInventory == null)
-            throw new NullOrEmtyDomainDataException("محصول یافت نشد!");
-        Inventories.Remove(currentInventory);
+            throw new InvalidDomainDataException("محصول یافت نشد!");
+
+        currentInventory.Edit(count, price, percentageCount);
 
     }
+   
     public void Guard(string shopName, string nationalCode)
     {
 

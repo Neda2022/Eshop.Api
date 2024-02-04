@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Sellers\ChangeStatus\" />
-    <Folder Include="Sellers\AddInventory\" />
-    <Folder Include="Sellers\EditInventory\" />
-    <Folder Include="Sellers\DeletInventory\" />
     <Folder Include="SiteEntities\Banner\Create\" />
     <Folder Include="SiteEntities\Banner\Edit\" />
     <Folder Include="SiteEntities\Banner\Delete\" />
