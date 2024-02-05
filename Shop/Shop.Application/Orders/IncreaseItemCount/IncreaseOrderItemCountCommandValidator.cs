@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Shop.Application.Orders.ChangeCount;
+namespace Shop.Application.Orders.IncreaseItemCount;
 
 public class IncreaseOrderItemCountCommandValidator : AbstractValidator<IncreaseOrderItemCountCommand>
 {

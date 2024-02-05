@@ -2,7 +2,7 @@
 using Common.Application;
 using Shop.Domain.Entities.OrderAgg.Repository;
 
-namespace Shop.Application.Orders.ChangeCount;
+namespace Shop.Application.Orders.IncreaseItemCount;
 
 public class IncreaseOrderItemCountCommandHandler : IBaseCommandHandler<IncreaseOrderItemCount>
 {
