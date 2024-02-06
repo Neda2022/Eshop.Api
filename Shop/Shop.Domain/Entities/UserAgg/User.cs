@@ -9,11 +9,11 @@ namespace Shop.Domain.Entities.UserAgg;
 
 public class User : AggregateRoot
 {
-    private User()
+    private User(string avatar)
     {
-            
+        Avatar = avatar;
     }
-    public User(string name, string family, 
+    public User(string name, string family,
         string phoneNumber, string email,
         string password, Gender gender, IDomainUserService domainService)
     {
@@ -24,13 +24,14 @@ public class User : AggregateRoot
         Password = password;
         Gender = gender;
         Guard(phoneNumber, email, domainService);
-
+        Avatar = "avatar.png";
     }
 
     public string Name { get; private set; }
     public string Family { get; private set; }
     public string PhoneNumber { get; private set; }
     public string Email { get; private set; }
+    public string Avatar { get; private set; }
     public string Password { get; private set; }
     public Gender Gender { get; private set; }
     public List<UserRole> Roles { get; private set; }
@@ -52,6 +53,12 @@ public class User : AggregateRoot
     public static User RejisterUser(string email,string phoneNumber, string password, IDomainUserService domainService)
     {
         return new User("", "", email,phoneNumber, password, Gender.None, domainService);
+    }
+    public void SetAvatar(string imageName)
+    {
+        if (string.IsNullOrWhiteSpace(imageName))
+            imageName = "avatar.png";
+        Avatar = imageName;
     }
     public void AddAddress(UserAddress address)
     {
