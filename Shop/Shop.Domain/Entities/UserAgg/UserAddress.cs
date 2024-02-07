@@ -2,6 +2,8 @@
 
 using Common.Domain;
 using Common.Domain.Exceptions;
+using Common.Domain.ValueObjects;
+using System.Drawing;
 
 namespace Shop.Domain.Entities.UserAgg;
 
@@ -12,47 +14,54 @@ public class UserAddress : BaseEntity
         ActiveAddress = activeAddress;
     }
 
-    public UserAddress(string shir,
+    public UserAddress(string shire,
         string city,
         string postalCode,
         string postalAddress,
         string name, string family,
-        string nationalCode, bool activeAddress)
+        string nationalCode, PhoneNumber phoneNumber)
     {
-        Guard(shir, city, postalCode,
-            postalAddress, name, family,
-            nationalCode);
-        Shir = shir;
+        Guard(shire, city, postalCode, postalAddress,
+               phoneNumber, name, family, nationalCode);
+
+        Shire = shire;
         City = city;
         PostalCode = postalCode;
         PostalAddress = postalAddress;
+        PhoneNumber = phoneNumber;
         Name = name;
         Family = family;
-        ActiveAddress = false;
+        NationalCode = nationalCode;
     }
 
 
 
     public long UserId { get; internal set; }
 
-    public string Shir { get; private set; }
+    public string Shire { get; private set; }
            
     public string City { get; private set; }
     public string PostalCode { get; private set; }
     public string PostalAddress { get; private set; }
     public string Name { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
     public string Family { get; private set; }
     public string NationalCode { get; private set; }
     public bool ActiveAddress { get; private set; } 
-    public void Edit(string shir, string city,
+
+
+    public void Edit(string shire, string city,
         string postalCode, string postalAddress, string name, string family,
-         string nationalCode)
+         string nationalCode, PhoneNumber phoneNumber)
     {
-        Guard(shir,city,postalCode,postalAddress,name,family,nationalCode);
-        Shir = shir;
+        Guard(shire, city, postalCode, postalAddress,
+               phoneNumber, name, family, nationalCode);
+
+        Shire = shire;
         City = city;
         PostalCode = postalCode;
         PostalAddress = postalAddress;
+        PhoneNumber = phoneNumber;
         Name = name;
         Family = family;
         NationalCode = nationalCode;
@@ -62,11 +71,13 @@ public class UserAddress : BaseEntity
         ActiveAddress = true;
     }
 
-    public void Guard(string shir, string city, string postalCode, 
-        string postalAddress, string name, string family,
-         string nationalCode)
+    public void Guard(string shire, string city, string postalCode, string postalAddress,
+            PhoneNumber phoneNumber, string name, string family, string nationalCode)
     {
-        NullOrEmtyDomainDataException.CheckString(shir, nameof(shir));
+        if (phoneNumber == null)
+            throw new NullOrEmtyDomainDataException();
+
+        NullOrEmtyDomainDataException.CheckString(shire, nameof(shire));
         NullOrEmtyDomainDataException.CheckString(city, nameof(city));
         NullOrEmtyDomainDataException.CheckString(postalCode, nameof(postalCode));
         NullOrEmtyDomainDataException.CheckString(postalAddress, nameof(postalAddress));

@@ -74,15 +74,15 @@ public class User : AggregateRoot
         Addresses.Remove(oldAddress);
 
     }
-    public void EditAddress(UserAddress address)
+    public void EditAddress(UserAddress address, long addressId)
     {
 
         var oldAddress= Addresses.FirstOrDefault(f=>f.Id==address.Id);
         if (oldAddress == null)
             throw new NullOrEmtyDomainDataException("آدرس پیدا نشد!");
-       
-        Addresses.Remove(oldAddress);
-        Addresses.Add(address);
+        oldAddress.Edit(address.Shire, address.City, address.PostalCode,
+           address.PostalAddress,  
+               address.Name, address.Family, address.NationalCode,address.PhoneNumber);
     }
     
     public void ChargeWallet(Wallet wallet)
