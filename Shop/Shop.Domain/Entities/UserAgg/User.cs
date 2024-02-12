@@ -50,9 +50,9 @@ public class User : AggregateRoot
         Guard(phoneNumber, email, domainService);
        
     }
-    public static User RejisterUser(string email,string phoneNumber, string password, IDomainUserService domainService)
+    public static User RejisterUser(string phoneNumber, string password, IDomainUserService domainService)
     {
-        return new User("", "", email,phoneNumber, password, Gender.None, domainService);
+        return new User("", "",phoneNumber,null, password, Gender.None, domainService);
     }
     public void SetAvatar(string imageName)
     {

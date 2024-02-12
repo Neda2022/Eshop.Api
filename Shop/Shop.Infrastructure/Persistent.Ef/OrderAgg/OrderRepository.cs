@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Shop.Infrastructure.Persistent.Ef.OrderAgg;
 
-    public class OrderRepository : BaseRepository<Order>, IOrderRepository
+    internal class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
-        public OrderRepository(DataBaseContext context) : base(context)
+        public OrderRepository(ShopContext context) : base(context)
         {
         }
 

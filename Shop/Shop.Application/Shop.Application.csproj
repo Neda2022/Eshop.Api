@@ -8,9 +8,6 @@
 
   <ItemGroup>
     <Folder Include="SiteEntities\Sliders\Delete\" />
-    <Folder Include="Users\DeleteAddress\" />
-    <Folder Include="Users\ChargeWallet\" />
-    <Folder Include="Users\Rejester\" />
   </ItemGroup>
 
   <ItemGroup>

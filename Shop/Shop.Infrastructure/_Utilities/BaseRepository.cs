@@ -8,9 +8,9 @@ namespace Shop.Infrastructure._Utilities
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly DataBaseContext _context;
+        protected readonly ShopContext _context;
 
-        public BaseRepository(DataBaseContext context)
+        public BaseRepository(ShopContext context)
         {
             _context = context;
         }

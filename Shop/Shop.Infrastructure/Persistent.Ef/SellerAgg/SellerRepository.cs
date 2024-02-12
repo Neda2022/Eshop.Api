@@ -11,7 +11,7 @@ namespace Shop.Infrastructure.Persistent.Ef.SellerAgg
 {
     public class SellerRepository : BaseRepository<Seller>, ISellerRepository
     {
-        public SellerRepository(DataBaseContext context) : base(context)
+        public SellerRepository(ShopContext context) : base(context)
         {
         }
 

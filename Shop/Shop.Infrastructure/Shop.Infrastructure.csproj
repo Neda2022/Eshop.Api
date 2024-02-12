@@ -8,10 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shop.Domain\Shop.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistent.Ef\CategoryAgg\" />
+    <Folder Include="Persistent.Ef\CommentAgg\" />
+    <Folder Include="Persistent.Ef\BannerAgg\" />
   </ItemGroup>
 
 </Project>

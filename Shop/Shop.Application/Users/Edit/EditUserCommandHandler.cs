@@ -10,11 +10,11 @@ namespace Shop.Application.Users.Edit;
 
 public class EditUserCommandHandler : IBaseCommandHandler<EditUserCommand>
 {
-    private readonly IUsrerRepository _repository;
+    private readonly IUserRepository _repository;
     private readonly IDomainUserService _domainService;
     private readonly IFileService _fileService;
 
-    public EditUserCommandHandler(IUsrerRepository repository, IDomainUserService domainService, IFileService fileService)
+    public EditUserCommandHandler(IUserRepository repository, IDomainUserService domainService, IFileService fileService)
     {
         _repository = repository;
         _domainService = domainService;

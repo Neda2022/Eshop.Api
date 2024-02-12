@@ -8,9 +8,9 @@ namespace Shop.Application.Users.AddAdress;
 
 internal class EditAddressCommandHandler : IBaseCommandHandler<EditAddressCommand>
 {
-    private readonly IUsrerRepository _repository;
+    private readonly IUserRepository _repository;
 
-    public EditAddressCommandHandler(IUsrerRepository repository)
+    public EditAddressCommandHandler(IUserRepository repository)
     {
         _repository = repository;
     }

@@ -7,6 +7,9 @@ using Shop.Infrastructure.Persistent.Ef.OrderAgg;
 using Shop.Domain.Entities.RoleAgg.Repository;
 using Shop.Infrastructure.Persistent.Ef.RoleAgg;
 using Shop.Domain.Entities.SellerAgg.Repository;
+using Shop.Infrastructure.Persistent.Ef.SellerAgg;
+using Shop.Domain.Entities.ProductAgg.Repository;
+using Shop.Infrastructure.Persistent.Ef.ProductAgg;
 
 namespace Shop.Infrastructure;
 
@@ -14,11 +17,11 @@ public class InfrastructureBootstrapper
 {
         public static void Init(IServiceCollection services, string connectionString)
     {
-
-        services.AddTransient<IUsrerRepository, UserRepository>();
+        services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddTransient<IRoleRepository, RoleRepository>();
-        services.AddTransient<ISellerRepository, ISellerRepository>();
+        services.AddTransient<ISellerRepository, SellerRepository>();
 
 
 
