@@ -16,10 +16,12 @@ public class Comment:AggregateRoot
     public long ProductId { get; private set; }
     public string Text { get; private set; }
     public CommentStatus Status { get; private set; }
-
     public DateTime UpdateDate { get; private set; }
 
-
+    private Comment()
+    {
+            
+    }
     public Comment(long userId, long productId, string text)
     {
         NullOrEmtyDomainDataException.CheckString(text, nameof(text));

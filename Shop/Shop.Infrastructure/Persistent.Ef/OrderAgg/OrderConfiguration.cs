@@ -26,11 +26,15 @@ namespace Shop.Infrastructure.Persistent.Ef.OrderAgg
             builder.OwnsOne(b => b.ShippingMethod, option =>
             {
                 option.Property(b => b.ShippingType)
-                .HasMaxLength(50);
+                .HasMaxLength(100)
+                .IsRequired(false);
+                
             });
             // استفاده میکنیم ownMany   وقتی رابطه چند به چند داریم از        
             builder.OwnsMany(b=>b.Items, option=>{
                 option.ToTable("Item", "order");
+                option.HasKey(b => b.Id);
+                
             });
 
             // استفاده می کنیم  ownOne وقتی رابطه یک به یک استفاده می کنیم از 

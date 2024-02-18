@@ -15,10 +15,4 @@
     <ProjectReference Include="..\Shop.Domain\Shop.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistent.Ef\CategoryAgg\" />
-    <Folder Include="Persistent.Ef\CommentAgg\" />
-    <Folder Include="Persistent.Ef\BannerAgg\" />
-  </ItemGroup>
-
 </Project>

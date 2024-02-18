@@ -17,20 +17,20 @@ namespace Shop.Domain.Entities.CategoryAgg;
     {
 
     }
-    public Category(string title, string slug, SeoData seoDatas, ICategoryDomainService domainService)
+    public Category(string title, string slug, SeoData seoData, ICategoryDomainService domainService)
     {
         Guard(title, slug, domainService);
         slug = slug?.ToSlug();
         Title = title;
         Slug = slug;
-        SeoDatas = seoDatas;
+        SeoData = seoData;
     }
 
     
 
     public string Title { get; private set; }
     public string Slug { get; private set; }
-    public SeoData SeoDatas { get; private set; }
+    public SeoData SeoData { get; private set; }
     public long? ParantId { get; private set; }
     public List<Category> Childs { get; private set; }
 

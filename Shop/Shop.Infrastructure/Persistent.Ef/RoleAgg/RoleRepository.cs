@@ -11,7 +11,7 @@ namespace Shop.Infrastructure.Persistent.Ef.RoleAgg
 {
     public class RoleRepository : BaseRepository<Role>, IRoleRepository
     {
-        public RoleRepository(DataBaseContext context) : base(context)
+        public RoleRepository(ShopContext context) : base(context)
         {
         }
     }
