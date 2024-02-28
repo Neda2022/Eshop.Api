@@ -21,11 +21,11 @@ public class ShopContext : DbContext
    
     public DbSet<Category> Categories { get; set; }
     public DbSet<Comment> Comments { get; set; }
-    public DbSet<Order> orders { get; set; }
+    public DbSet<Order> Orders { get; set; }
     public DbSet<Product> products { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Seller> Sellers { get; set; }
-    public DbSet<Slide> Banners { get; set; }
+    public DbSet<Slider> Banners { get; set; }
     public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

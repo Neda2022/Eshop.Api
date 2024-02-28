@@ -25,7 +25,6 @@ public class Order:AggregateRoot
     public List<OrderItem> Items { get; private set; }
     public OrderAddress? Address { get; private set; }
     public ShippingMethod ShippingMethod { get; private set; }
-
     public DateTime? LastUpdate { get; private set; }
 
     public int TotalPrice
@@ -96,7 +95,7 @@ public class Order:AggregateRoot
     public void ChangeStatus(OrderStatus status)
     {
        Status=status;
-        LastUpdate=DateTime.Now;    
+        CreationDate=DateTime.Now;    
     }
     public void CheckOut(OrderAddress orderAddress)//   سبد خرید و آدر و نحوه ارسال انتخاب کردیم و نوبت پرداخت است
     {
