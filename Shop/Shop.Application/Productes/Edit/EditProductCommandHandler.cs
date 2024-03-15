@@ -35,7 +35,7 @@ internal class EditProductCommandHandler : IBaseCommandHandler<EditProductComman
             request.Description,
             request.CategoryId,
             request.SubCategoryId, 
-            request.SeconderyCategoryId,
+            request.SecondarySubCategoryId,
             request.Slug,
             request.SeoData,
             _domainService);

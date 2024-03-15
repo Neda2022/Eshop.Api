@@ -7,7 +7,7 @@ namespace Shop.Application.Sellers.Edit;
 
 public class EditSellerCommand:IBaseCommand
     {
-    public EditSellerCommand(long id, string shopName, string nationalCode,
+    public EditSellerCommand(long id, string shopName, string nationalCode
 , SellerStatus status)
     {
         Id = id;

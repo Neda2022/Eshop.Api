@@ -7,7 +7,7 @@ namespace Shop.Infrastructure.Persistent.Ef.UserAgg;
 
 internal class UserRepository : BaseRepository<User>,IUserRepository
 {
-    public UserRepository(DataBaseContext context) : base(context)
+    public UserRepository(ShopContext context) : base(context)
     {
     }
 }

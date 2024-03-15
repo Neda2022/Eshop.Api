@@ -4,7 +4,7 @@ using Shop.Domain.Entities.OrderAgg.Repository;
 
 namespace Shop.Application.Orders.IncreaseItemCount;
 
-public class IncreaseOrderItemCountCommandHandler : IBaseCommandHandler<IncreaseOrderItemCount>
+public class IncreaseOrderItemCountCommandHandler : IBaseCommandHandler<IncreaseOrderItemCountCommand>
 {
     private readonly IOrderRepository _repository;
 
@@ -13,7 +13,7 @@ public class IncreaseOrderItemCountCommandHandler : IBaseCommandHandler<Increase
         _repository = repository;
     }
 
-    public async Task<OperationResult> Handle(IncreaseOrderItemCount request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(IncreaseOrderItemCountCommand request, CancellationToken cancellationToken)
     {
         var currentOrder = await _repository.GetCurrentUserOrder(request.UserId);
         if (currentOrder == null)

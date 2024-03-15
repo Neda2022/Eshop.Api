@@ -1,8 +1,9 @@
 ﻿
 using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Categories.DTOs;
-using System.Data.Entity;
+
 
 namespace Shop.Query.Categories.GetByParantId;
 

@@ -21,7 +21,7 @@ internal class CreateBannerCommandHandler : IBaseCommandHandler<CreateBannerComm
     public async Task<OperationResult> Handle(CreateBannerCommand request, CancellationToken cancellationToken)
     {
         var imageName = await _fileService.SaveFileAndGenerateName(request.ImageFile, Directories.BannerImages);
-        var banner= new Slide(request.Link, imageName, request.Position);
+        var banner= new Banner(request.Link, imageName, request.Position);
         _repository.Add(banner);
         await _repository.Save();
         return OperationResult.Success();

@@ -26,7 +26,7 @@ internal class DeleteBannerCommandHandler : IBaseCommandHandler<DeleteBannerComm
         var banner = await _repository.GetTracking(request.Id);
         if (banner == null) { OperationResult.NotFound(); }
 
-        _repository.Delete(banner);
+        //_repository.Delete(banner);
         await _repository.Save();
         _localFileService.DeleteFile(Directories.BannerImages, banner.ImageName);
         return OperationResult.Success();

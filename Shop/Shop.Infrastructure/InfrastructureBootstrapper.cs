@@ -18,6 +18,7 @@ using Shop.Domain.Entities.SiteEntity.Repository;
 using Shop.Infrastructure.Persistent.Ef.SiteEntities.Repository;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef;
+using Microsoft.EntityFrameworkCore;
 
 namespace Shop.Infrastructure;
 
@@ -34,18 +35,20 @@ public class InfrastructureBootstrapper
         services.AddTransient<ISellerRepository, SellerRepository>();
         services.AddTransient<IBannerRepository, BannerRepository>();
         services.AddTransient<ISliderRepository, SliderRepository>();
+       // services.AddTransient<IShippingMethodRepository, ShippingMethodRepository>();
         services.AddTransient<DapperContext>(_=> new DapperContext(connectionString));
+        services.AddTransient(_ => new DapperContext(connectionString));
         services.AddDbContext<ShopContext>(option =>
         {
-            option.UseSqlService(connectionString);
-
+            option.UseSqlServer(connectionString);
         });
-
-
     }
 
 
-
 }
+
+
+
+
 
 

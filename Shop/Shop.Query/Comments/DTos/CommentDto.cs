@@ -5,7 +5,7 @@ using Shop.Domain.Entities.CommentAgg;
 
 namespace Shop.Query.Comments.DTos;
 
-    public class CommentDto:BaseDto
+public class CommentDto:BaseDto
     {
     public long ProductId { get; set; }
     public long UserId { get; set; }

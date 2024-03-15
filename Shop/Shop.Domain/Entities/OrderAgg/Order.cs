@@ -95,7 +95,7 @@ public class Order:AggregateRoot
     public void ChangeStatus(OrderStatus status)
     {
        Status=status;
-        CreationDate=DateTime.Now;    
+        CreateDate=DateTime.Now;    
     }
     public void CheckOut(OrderAddress orderAddress)//   سبد خرید و آدر و نحوه ارسال انتخاب کردیم و نوبت پرداخت است
     {

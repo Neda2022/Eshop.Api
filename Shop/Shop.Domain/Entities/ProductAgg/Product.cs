@@ -23,7 +23,7 @@ public class Product:AggregateRoot
     public string Description { get; private set; }
     public long CategoryId { get; private set; }
     public long SubCategoryId { get; private set; }
-    public long SeconderyCategoryId { get; private set; }
+    public long? SeconderyCategoryId { get; private set; }
     public string Slug { get; private set; }
     public SeoData SeoData { get; private set; }
     public List<ProductImage> Images { get; private set; }
@@ -36,7 +36,7 @@ public class Product:AggregateRoot
        string description,
        long categoryId,
        long subCategoryId,
-       long seconderyCategoryId,
+       long? seconderyCategoryId,
        string slug,
        SeoData seoData,
        IProductDomainService domainService)
@@ -60,7 +60,7 @@ public class Product:AggregateRoot
       string description,
       long categoryId,
       long subCategoryId,
-      long seconderyCategoryId,
+      long? seconderyCategoryId,
       string slug,
       SeoData seoData,
       IProductDomainService domainService)
@@ -94,7 +94,8 @@ public class Product:AggregateRoot
     {
         var image = Images.FirstOrDefault(f => f.Id == id);
         if (image == null)
-            throw NullOrEmtyDomainDataException("عکس یافت نشد!");
+            throw new NullOrEmtyDomainDataException("عکس یافت نشد");
+
         Images.Remove(image);
         return image.ImageName;
     }

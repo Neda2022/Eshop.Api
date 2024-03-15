@@ -2,6 +2,7 @@
 
 using Common.Application;
 using Common.Application.FileUtil.Interfaces;
+using Common.Application.FileUtil.Services;
 using Shop.Application._Utilites;
 using Shop.Domain.Entities.ProductAgg;
 using Shop.Domain.Entities.ProductAgg.Repository;
@@ -14,7 +15,7 @@ public class CreateProductCommandHandler : IBaseCommandHandler<CreateProductComm
    private readonly IProductRepository _repository;
    private readonly IProductDomainService _domainService;
     private readonly IFileService _fileSercvice;
-    internal CreateProductCommandHandler(IProductRepository repository,
+    public CreateProductCommandHandler(IProductRepository repository,
         IProductDomainService domainService,
         IFileService fileSercvice)
     {
@@ -26,24 +27,18 @@ public class CreateProductCommandHandler : IBaseCommandHandler<CreateProductComm
     public async Task<OperationResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var imageName = await _fileSercvice.SaveFileAndGenerateName(request.ImageFile, Directories.ProductImages);
+        var product = new Product(request.Title, imageName, request.Description, request.CategoryId,
+            request.SubCategoryId, request.SecondarySubCategoryId, request.Slug,
+            request.SeoData  ,_domainService);
 
-        var product =  new Product(request.Title,
-            imageName,
-            request.Description,
-            request.CategoryId,
-            request.CategoryId,
-            request.SeconderyCategoryId, 
-            request.Slug,
-            request.SeoData,
-            _domainService);
-        // Specifications  گرفتن آیدی محصول برای اضافه کردن  
-         _repository.Add(product);
-        var specifications= new List<ProductSpecification>();
+        _repository.Add(product);
+
+        var specifications = new List<ProductSpecification>();
         request.Specifications.ToList().ForEach(specification =>
         {
             specifications.Add(new ProductSpecification(specification.Key, specification.Value));
-      
         });
+
         product.SetSpecification(specifications);
         await _repository.Save();
         return OperationResult.Success();

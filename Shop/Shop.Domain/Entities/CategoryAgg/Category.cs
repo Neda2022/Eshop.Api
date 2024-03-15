@@ -17,7 +17,8 @@ namespace Shop.Domain.Entities.CategoryAgg;
     {
 
     }
-    public Category(string title, string slug, SeoData seoData, ICategoryDomainService domainService)
+    public Category(string title, string slug, SeoData seoData, 
+        ICategoryDomainService domainService)
     {
         Guard(title, slug, domainService);
         slug = slug?.ToSlug();

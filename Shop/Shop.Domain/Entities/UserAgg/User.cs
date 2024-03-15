@@ -9,9 +9,9 @@ namespace Shop.Domain.Entities.UserAgg;
 
 public class User : AggregateRoot
 {
-    private User(string avatar)
+    private User()
     {
-        Avatar = avatar;
+      
     }
     public User(string name, string family,
         string phoneNumber, string email,

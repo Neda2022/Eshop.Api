@@ -1,14 +1,15 @@
 ﻿
 
 using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Orders.DTOs;
-using System.Data.Entity;
+
 
 namespace Shop.Query.Orders.GetById;
 
-internal class GetOrderByIdQueryHandler : IQueryHandler<GetOrderByIdQuery, OrderDto>
+internal class GetOrderByIdQueryHandler : IQueryHandler<GetOrderByIdQuery, OrderDto?>
 {
     private readonly ShopContext _context;
     private readonly DapperContext _dapperContext;
@@ -22,8 +23,7 @@ internal class GetOrderByIdQueryHandler : IQueryHandler<GetOrderByIdQuery, Order
 
     public async Task<OrderDto?> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
     {
-        var order = await _context.Orders
-           .FirstOrDefaultAsync(f => f.Id == request.OrderId, cancellationToken);
+        var order = await _context.Orders.FirstOrDefaultAsync(f => f.Id == request.OrderId, cancellationToken);
         if (order == null)
             return null;
 

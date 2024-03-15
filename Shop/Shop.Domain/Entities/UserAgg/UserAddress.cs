@@ -9,9 +9,9 @@ namespace Shop.Domain.Entities.UserAgg;
 
 public class UserAddress : BaseEntity
 {
-    private UserAddress(bool activeAddress)
+    private UserAddress()
     {
-        ActiveAddress = activeAddress;
+
     }
 
     public UserAddress(string shire,
@@ -32,6 +32,7 @@ public class UserAddress : BaseEntity
         Name = name;
         Family = family;
         NationalCode = nationalCode;
+        ActiveAddress = false;
     }
 
 

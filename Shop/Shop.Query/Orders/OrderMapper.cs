@@ -54,8 +54,7 @@ namespace Shop.Query.Orders;
         };
     }
 
-    public static async Task<List<OrderItemDto>> GetOrderItems(this OrderDto orderDto,
-        DapperContext dapperContext)
+    public static async Task<List<OrderItemDto>> GetOrderItems(this OrderDto orderDto, DapperContext dapperContext)
     {
         using var connection = dapperContext.CreateConnection();
         var sql = @$"SELECT o.Id, s.ShopName ,o.OrderId,o.InventoryId,o.Count,o.price,
@@ -67,9 +66,9 @@ namespace Shop.Query.Orders;
                     Inner Join {dapperContext.Sellers} s on i.SellerId=s.Id
                     where o.OrderId=@orderId";
 
-        var result = await connection
-            .QueryAsync<OrderItemDto>(sql, new { orderId = orderDto.Id });
+        var result = await connection.QueryAsync<OrderItemDto>(sql, new { orderId = orderDto.Id });
         return result.ToList();
+    
     }
 }
 
