@@ -1,6 +1,7 @@
 ﻿
 
 using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Products.DTOs;
 using System.Linq;
@@ -33,8 +34,8 @@ public class GetProductByFilterQueryHandlwe : IQueryHandler<GetProductByFilterQu
         var skip = (@param.PageId - 1) * @param.Take;
         var model = new ProductFilterResult()
         {
-            Data = result.Skip(skip).Take(@param.Take)
-            .Select(s=>s.MapListData()).ToList(),
+            Data =await result.Skip(skip).Take(@param.Take)
+            .Select(s=>s.MapListData()).ToListAsync(cancellationToken),
 
             FilterParams= @param,
 
