@@ -15,6 +15,7 @@ using Shop.Domain.Entities.ProductAgg.Services;
 using Shop.Domain.Entities.SellerAgg.Services;
 using Shop.Domain.Entities.UserAgg.Services;
 using Shop.Infrastructure;
+using Shop.Presentation.Facade;
 using Shop.Query.Categories.GetById;
 using System.Reflection;
 
@@ -32,7 +33,7 @@ namespace Shop.Config;
         services.AddTransient<IDomainUserService, UserDomainService>();
         services.AddTransient<ISellerDomainService, SellerDomainService>();
         services.AddValidatorsFromAssembly(typeof(EditRoleCommandValidator).Assembly);
-
+        services.InitFacadDependency();
 
     }
 }

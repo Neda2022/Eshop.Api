@@ -5,4 +5,4 @@ using Microsoft.AspNetCore.Http;
 
 namespace Shop.Application.SiteEntities.Sliders.Create;
 
-public record CreateSlideCommand(string Title, string Link, IFormFile ImageFile) : IBaseCommand;
+public record CreateSliderCommand(string Title, string Link, IFormFile ImageFile) : IBaseCommand;

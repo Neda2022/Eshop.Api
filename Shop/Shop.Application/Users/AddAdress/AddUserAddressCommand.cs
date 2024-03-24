@@ -6,7 +6,7 @@ using Common.Domain.ValueObjects;
 
 namespace Shop.Application.Users.AddAdress;
 
-public record EditAddressCommand(
+public record AddUserAddressCommand(
          long userId,
         string Shire,
         string City,

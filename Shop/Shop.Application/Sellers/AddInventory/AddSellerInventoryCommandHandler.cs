@@ -6,16 +6,16 @@ using Shop.Domain.Entities.SellerAgg.Repository;
 
 namespace Shop.Application.Sellers.AddInventory;
 
-internal class SellerInventoryCommandHandler : IBaseCommandHandler<SellerInventoryCommand>
+internal class AddSellerInventoryCommandHandler : IBaseCommandHandler<AddSellerInventoryCommand>
 {
     private readonly ISellerRepository _repository;
 
-    public SellerInventoryCommandHandler(ISellerRepository repository)
+    public AddSellerInventoryCommandHandler(ISellerRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<OperationResult> Handle(SellerInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(AddSellerInventoryCommand request, CancellationToken cancellationToken)
     {
         var seller = await _repository.GetTracking(request.SellerId);
         if (seller == null) { return OperationResult.NotFound(); }

@@ -5,9 +5,9 @@ using Shop.Application.SiteEntities.Banners.Create;
 
 namespace Shop.Application.SiteEntities.Sliders.Create;
 
-public class CreateSlideCommandValidator : AbstractValidator<CreateSlideCommand>
+public class CreateSliderCommandValidator : AbstractValidator<CreateSliderCommand>
 {
-    public CreateSlideCommandValidator()
+    public CreateSliderCommandValidator()
     {
        
             RuleFor(b => b.ImageFile)

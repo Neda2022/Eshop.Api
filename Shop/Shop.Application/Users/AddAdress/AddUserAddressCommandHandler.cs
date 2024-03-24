@@ -6,16 +6,16 @@ using Shop.Domain.Entities.UserAgg.Repository;
 
 namespace Shop.Application.Users.AddAdress;
 
-internal class EditAddressCommandHandler : IBaseCommandHandler<EditAddressCommand>
+internal class AddUserAddressCommandHandler : IBaseCommandHandler<AddUserAddressCommand>
 {
     private readonly IUserRepository _repository;
 
-    public EditAddressCommandHandler(IUserRepository repository)
+    public AddUserAddressCommandHandler(IUserRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<OperationResult> Handle(EditAddressCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(AddUserAddressCommand request, CancellationToken cancellationToken)
     {
         var user = await _repository.GetTracking(request.userId);
         if (user == null) return OperationResult.NotFound();

@@ -5,7 +5,7 @@ using Shop.Query.Sellers.DTOs;
 
 namespace Shop.Query.Sellers;
 
-public static class Mapper
+public static class SellerMapper
 {
     public static SellerDto? Map(this Seller seller)
     {

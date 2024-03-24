@@ -1,6 +1,7 @@
 ﻿
 
 using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.SiteEntities.Banners.DTOs;
 
@@ -17,11 +18,11 @@ public class GetBannerListQueryHandler : IQueryHandler<GetBannerListQuery, List<
 
     public async Task<List<BannerDto>> Handle(GetBannerListQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Banners.OrderByDescending(d => d.Id)
+        return await _context.Banner.OrderByDescending(d => d.Id)
             .Select(banner => new BannerDto()
             {
                 Id = banner.Id,
-                CreationDate = banner.CreationDate,
+                CreationDate = banner.CreateDate,
                 ImageName = banner.ImageName,
                 Link = banner.Link,
                 Position = banner.Position

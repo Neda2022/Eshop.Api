@@ -1,13 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Shop.Domain.Entities.CategoryAgg;
+﻿using Shop.Domain.Entities.CategoryAgg;
 using Shop.Query.Categories.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shop.Query;
+
+namespace Shop.Query.Categories;
 
 public static class CategoryMapper
 {
@@ -93,6 +88,6 @@ public static class CategoryMapper
 
 
     }
-   
+
 }
 
