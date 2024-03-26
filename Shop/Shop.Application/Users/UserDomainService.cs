@@ -1,4 +1,5 @@
-﻿using Shop.Domain.Entities.UserAgg.Services;
+﻿using Shop.Domain.Entities.UserAgg.Repository;
+using Shop.Domain.Entities.UserAgg.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,21 @@ namespace Shop.Application.Users
 {
     public class UserDomainService : IDomainUserService
     {
+        private readonly IUserRepository _repository;
+
+        public UserDomainService(IUserRepository repository)
+        {
+            _repository = repository;
+        }
+
         public bool IsEmailExist(string email)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(r => r.Email == email);
         }
 
         public bool PhoneNumberExist(string phoneNumber)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(r => r.PhoneNumber == phoneNumber);
         }
     }
 }

@@ -19,7 +19,9 @@ internal class GetCategoryByParantIdQueryHandler :
 
     public async Task<List<ChildCategoryDto>> Handle(GetCategoryByParantIdQuery request, CancellationToken cancellationToken)
     {
-        var model = await _context.Categories.Where(f =>
+        var model = await _context.Categories
+              .Include(c => c.Childs)
+            .Where(f =>
             f.ParantId == request.ParantId)
             .ToListAsync(cancellationToken);
         return model.MapChild();

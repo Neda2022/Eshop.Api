@@ -20,7 +20,11 @@ internal class GetCategoryListQueryHandler :
 
     public async Task<List<CategoryDto>> Handle(GetCategoryListQuery request, CancellationToken cancellationToken)
     {
-        var model = await _context.Categories.OrderByDescending( d => d.Id)
+        var model = await _context.Categories
+            .Where(r=>r.ParantId==null)
+            .Include(c=>c.Childs)
+            .ThenInclude(c => c.Childs)
+            .OrderByDescending( d => d.Id)
             .ToListAsync(cancellationToken);
 
         return model.Map();

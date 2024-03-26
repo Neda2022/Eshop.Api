@@ -8,7 +8,7 @@ using Shop.Query.Comments.DTos;
 
 namespace Shop.Query.Comments.GetByList;
 
-internal class GetCommentByIDQueryHandler : IQueryHandler<GetCommentByIDQuery, CommentDto?>
+internal class GetCommentByIDQueryHandler : IQueryHandler<GetCommentByIdQuery, CommentDto?>
 {
     private readonly ShopContext _context;
 
@@ -17,7 +17,7 @@ internal class GetCommentByIDQueryHandler : IQueryHandler<GetCommentByIDQuery, C
         _context = context;
     }
 
-    public async Task<CommentDto?> Handle(GetCommentByIDQuery request, CancellationToken cancellationToken)
+    public async Task<CommentDto?> Handle(GetCommentByIdQuery request, CancellationToken cancellationToken)
     {
 
         var comment =await _context.Comments.FirstOrDefaultAsync(f =>

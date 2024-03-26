@@ -15,7 +15,7 @@ namespace Shop.Domain.Entities.CategoryAgg;
     {
     private Category()
     {
-
+        Childs = new List<Category>();
     }
     public Category(string title, string slug, SeoData seoData, 
         ICategoryDomainService domainService)
@@ -25,6 +25,7 @@ namespace Shop.Domain.Entities.CategoryAgg;
         Title = title;
         Slug = slug;
         SeoData = seoData;
+        Childs = new List<Category>();
     }
 
     

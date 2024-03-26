@@ -1,4 +1,5 @@
 ﻿using Shop.Domain.Entities.SellerAgg;
+using Shop.Domain.Entities.SellerAgg.Repository;
 using Shop.Domain.Entities.SellerAgg.Services;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,22 @@ namespace Shop.Application.Sellers
 {
     public class SellerDomainService : ISellerDomainService
     {
+        private readonly ISellerRepository _repository;
+
+        public SellerDomainService(ISellerRepository repository)
+        {
+            _repository = repository;
+        }
+
         public bool CheckSellerInfo(Seller seller)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(r=>r.NationalCode == seller.NationalCode|| r.UserId==seller.UserId);
         }
 
         public bool IsNationalCodeExistInDatabase(string nationalCode)
         {
-            throw new NotImplementedException();
+            return _repository.Exists(r => r.NationalCode == nationalCode);
+
         }
     }
 }

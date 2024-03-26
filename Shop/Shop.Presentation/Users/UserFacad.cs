@@ -16,11 +16,9 @@ namespace Shop.Presentation.Facade.Users;
 public class UserFacad : IUserFacad
 {
     private readonly IMediator _mediator;
-    private IDistributedCache _cache;
-    public UserFacad(IMediator mediator, IDistributedCache cache)
+    public UserFacad(IMediator mediator)
     {
         _mediator = mediator;
-        _cache = cache;
     }
 
 
@@ -28,10 +26,6 @@ public class UserFacad : IUserFacad
     {
         return await _mediator.Send(command);
     }
-
-
-
-
 
 
     public async Task<OperationResult> EditUser(EditUserCommand command)

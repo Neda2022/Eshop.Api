@@ -1,5 +1,6 @@
 ﻿using Common.Application.Validation;
 using FluentValidation;
+using Shop.Application.Users.EditAddress;
 
 namespace Shop.Application.Users.AddAdress;
 
