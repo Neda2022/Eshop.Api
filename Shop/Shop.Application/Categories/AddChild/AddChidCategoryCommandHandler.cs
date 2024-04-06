@@ -6,7 +6,7 @@ using Shop.Domain.Entities.CategoryAgg.Services;
 
 namespace Shop.Application.Categories.AddChild;
 
-public class AddChidCategoryCommandHandler : IBaseCommandHandler<AddChidCategoryCommand>
+public class AddChidCategoryCommandHandler : IBaseCommandHandler<AddChidCategoryCommand,long>
 {
     private readonly ICategoryRepository _repository;
     private readonly ICategoryDomainService _domainService;
@@ -17,14 +17,14 @@ public class AddChidCategoryCommandHandler : IBaseCommandHandler<AddChidCategory
         _repository = repository;
         _domainService = domainService;
     }
-    public async Task<OperationResult> Handle(AddChidCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult<long>> Handle(AddChidCategoryCommand request, CancellationToken cancellationToken)
     {
         var category = await _repository.GetTracking(request.ParantId);
         if (category == null)
-            return OperationResult.NotFound();
+            return OperationResult<long>.NotFound();
         category.AddChild(request.Title, request.Slug, request.SeoData, _domainService);
         await _repository.Save();
-        return OperationResult.Success();
+        return OperationResult<long>.Success(category.Id);
     }
 }
 

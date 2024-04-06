@@ -22,6 +22,7 @@ namespace Shop.Domain.Entities.CategoryAgg;
     {
         Guard(title, slug, domainService);
         slug = slug?.ToSlug();
+
         Title = title;
         Slug = slug;
         SeoData = seoData;
