@@ -6,6 +6,7 @@ using System.Reflection;
 using MediatR;
 using Shop.Application.Productes.Create;
 using FluentValidation;
+using Common.Asp.NetCore.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,17 +28,16 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 
 
 app.UseAuthorization();
-
+app.UseApiCustomExceptionHandler();
 app.MapControllers();
 
 app.Run();
