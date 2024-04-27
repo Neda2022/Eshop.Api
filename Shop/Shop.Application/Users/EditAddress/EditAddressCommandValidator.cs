@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Shop.Application.Users.EditAddress;
 
-public class EditAddressCommandValidator:AbstractValidator<EditAddressCommand>
+public class EditAddressCommandValidator : AbstractValidator<EditAddressCommand>
 {
     public EditAddressCommandValidator()
     {
@@ -17,18 +17,18 @@ public class EditAddressCommandValidator:AbstractValidator<EditAddressCommand>
             .NotEmpty()
             .NotNull()
             .WithMessage(ValidationMessages.required("کدپستی"));
-       
+
         RuleFor(f => f.PostalAddress)
             .NotEmpty()
             .NotNull()
             .WithMessage(ValidationMessages.required("آدرس پستی"));
         RuleFor(f => f.Name)
             .NotEmpty()
-            .WithMessage(ValidationMessages.required("نام")); 
-        
+            .WithMessage(ValidationMessages.required("نام"));
+
         RuleFor(f => f.Family)
             .NotEmpty()
             .WithMessage(ValidationMessages.required("نام خانوادگی"));
-       
+
     }
 }

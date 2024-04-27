@@ -18,8 +18,13 @@ internal class DeleteUserAddressCommandHandler : IBaseCommandHandler<DeleteUserA
     {
         var user = await _repository.GetTracking(request.UserId);
 
-        if (user == null) { OperationResult.NotFound(); }
-        user.DeleteAddress(request.AddressId);
+        if (user == null)
+        OperationResult.NotFound(); 
+
+        else {
+            user.DeleteAddress(request.AddressId);
+        }
+       
         await _repository.Save();
         return OperationResult.Success();
         

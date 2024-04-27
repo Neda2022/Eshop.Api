@@ -20,7 +20,7 @@ internal class EditAddressCommandHandler : IBaseCommandHandler<EditAddressComman
         var user = await _repository.GetTracking(request.UserId);
         if (user == null) return OperationResult.NotFound();
         var address = new UserAddress(request.Shire, request.City, request.PostalCode,
-            request.PostalAddress, request.Name, 
+            request.PostalAddress, request.Name,
             request.Family, request.NationalCode, request.PhoneNumber);
         user.EditAddress(address, request.Id);
         await _repository.Save();

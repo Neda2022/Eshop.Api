@@ -3,17 +3,35 @@
 using Common.Application;
 using Common.Application.Validation.FluentValidations;
 using Common.Domain.ValueObjects;
+using Microsoft.AspNetCore.Http;
+using Shop.Domain.Entities.UserAgg.Enums;
 
 namespace Shop.Application.Users.EditAddress;
+public class EditAddressCommand : IBaseCommand
+{
+    public EditAddressCommand(string shire, string city, string postalCode, string postalAddress, PhoneNumber phoneNumber, string name, string family, string nationalCode, long userId, long id)
+    {
+        Shire = shire;
+        City = city;
+        PostalCode = postalCode;
+        PostalAddress = postalAddress;
+        PhoneNumber = phoneNumber;
+        Name = name;
+        Family = family;
+        NationalCode = nationalCode;
+        UserId = userId;
+        Id = id;
+    }
 
-public record EditAddressCommand(
-       long Id,
-         long UserId,
-        string Shire,
-        string City,
-        string PostalCode,
-        string PostalAddress,
-        string Name,
-        string Family,
-        string NationalCode, 
-        PhoneNumber PhoneNumber) :IBaseCommand;
+    public long UserId { get; set; }
+    public long Id { get; private set; }
+    public string Shire { get; private set; }
+    public string City { get; private set; }
+    public string PostalCode { get; private set; }
+    public string PostalAddress { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
+    public string Name { get; private set; }
+    public string Family { get; private set; }
+    public string NationalCode { get; private set; }
+
+}
