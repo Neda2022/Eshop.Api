@@ -1,0 +1,34 @@
+﻿using Common.Asp.NetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Shop.Presentation.Facade.Users;
+
+namespace Shop.Api.Infrastructure.JwtUtil;
+
+public class CustomJwtValidation
+{
+    private readonly IUserFacad _userFacade;
+
+    public CustomJwtValidation(IUserFacad facade)
+    {
+        _userFacade = facade;
+    }
+
+    public async Task Validate(TokenValidatedContext context)
+    {
+        var userId = context.Principal.GetUserId();
+        var jwtToken = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        var token = await _userFacade.GetUserTokenByJwtToken(jwtToken);
+        if (token == null)
+        {
+            context.Fail("Token NotFound");
+            return;
+        }
+
+        var user = await _userFacade.GetUserById(userId);
+        if (user == null || user.IsActive == false)
+        {
+            context.Fail("User InActive");
+            return;
+        }
+    }
+}

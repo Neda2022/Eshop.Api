@@ -25,6 +25,7 @@ public class User : AggregateRoot
         Gender = gender;
         Guard(phoneNumber, email, domainService);
         Avatar = "avatar.png";
+        IsActive = true;
     }
 
     public string Name { get; private set; }
@@ -33,6 +34,7 @@ public class User : AggregateRoot
     public string Email { get; private set; }
     public string Avatar { get; private set; }
     public string Password { get; private set; }
+    public bool IsActive { get; private set; }
     public Gender Gender { get; private set; }
     public List<UserRole> Roles { get; private set; }
     public List<Wallet> Wallets { get; private set; }
@@ -99,17 +101,16 @@ public class User : AggregateRoot
     public void Guard(string phoneNumber, string email, IDomainUserService domainService)
     {
         NullOrEmtyDomainDataException.CheckString(phoneNumber, nameof(phoneNumber));
-        NullOrEmtyDomainDataException.CheckString(email,nameof(email));
         if (phoneNumber.Length != 11)
             throw new InvalidDomainDataException("شماره تلفن وارد شده نامعتبر است!");
-
-        if(email.IsValidEmail()==false)
+        if (!string.IsNullOrWhiteSpace(email))
+            if (email.IsValidEmail()==false)
 
             throw new InvalidDomainDataException("ایمیل نامعتبر است!");
         if(phoneNumber!= PhoneNumber)
             if(domainService.PhoneNumberExist(phoneNumber)==true)
                 throw new InvalidDomainDataException("شماره تلفن وارد شده تکراری است!");
-
+       
         if (email != Email)
             if (domainService.IsEmailExist(email) == true)
                 throw new InvalidDomainDataException("ایمیل وارد شده تکراری است!");

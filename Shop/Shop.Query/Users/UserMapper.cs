@@ -21,11 +21,12 @@ namespace Shop.Query.Users;
             Email = user.Email,
             Gender = user.Gender,
             Password = user.Password,
+            IsActive=user.IsActive,
             PhoneNumber = user.PhoneNumber,
             Roles = user.Roles.Select(r => new UserRoleDto
             {
                 RoleId= r.RoleId,
-                Title="",
+                RoleTitle="",
             }).ToList(),
         };
     }
@@ -40,7 +41,7 @@ namespace Shop.Query.Users;
             roles.Add(new UserRoleDto()
             {
                 RoleId = role.Id,
-                Title = role.Title
+                RoleTitle = role.Title
             });
         }
 

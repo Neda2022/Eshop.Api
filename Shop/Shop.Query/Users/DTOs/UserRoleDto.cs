@@ -4,6 +4,6 @@ public class UserRoleDto
 {
 
     public long RoleId { get;  set; }
-    public string Title { get; set; }
+    public string RoleTitle { get; set; }
 
 }

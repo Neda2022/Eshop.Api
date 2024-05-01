@@ -7,6 +7,7 @@ using MediatR;
 using Shop.Application.Productes.Create;
 using FluentValidation;
 using Common.Asp.NetCore.Middlewares;
+using Shop.Api.Infrastructure.JwtUtil;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.RegisterShopDependency(connectionString);
 CommonBootstrapper.Init(builder.Services);
 builder.Services.AddTransient<IFileService, FileService>();
-
+builder.Services.AddJwtAuthentication(builder.Configuration);
 var app = builder.Build();
 
 
