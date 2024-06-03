@@ -3,6 +3,7 @@
 using Common.Application;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
+using Shop.Application.Users.AddToken;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
 using Shop.Application.Users.Rejester;
@@ -53,6 +54,11 @@ public class UserFacad : IUserFacad
     }
 
     public async Task<OperationResult> RegisterUser(RegisterUserCommand command)
+    {
+        return await _mediator.Send(command);
+    }
+
+    public async Task<OperationResult> AddToken(AddUserTokenCommand command)
     {
         return await _mediator.Send(command);
     }

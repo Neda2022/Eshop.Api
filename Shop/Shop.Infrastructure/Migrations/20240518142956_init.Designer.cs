@@ -12,8 +12,8 @@ using Shop.Infrastructure.Persistent.Ef;
 namespace Shop.Infrastructure.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20240312133835_Create-Relations")]
-    partial class CreateRelations
+    [Migration("20240518142956_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,7 +138,7 @@ namespace Shop.Infrastructure.Migrations
                         .HasMaxLength(110)
                         .HasColumnType("nvarchar(110)");
 
-                    b.Property<long>("SeconderyCategoryId")
+                    b.Property<long?>("SeconderyCategoryId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Slug")
@@ -276,7 +276,7 @@ namespace Shop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Banners");
+                    b.ToTable("Slider");
                 });
 
             modelBuilder.Entity("Shop.Domain.Entities.UserAgg.User", b =>
@@ -306,6 +306,9 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
@@ -321,9 +324,6 @@ namespace Shop.Infrastructure.Migrations
                         .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.HasIndex("PhoneNumber")
                         .IsUnique();

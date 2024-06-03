@@ -1,11 +1,16 @@
 ﻿using Common.Application;
 using Common.Application.SecurityUtil;
 using Common.Asp.NetCore;
+using Common.Domain.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.JwtUtil;
 using Shop.Api.ViewModels.Auth;
+using Shop.Application.Users.AddToken;
 using Shop.Application.Users.Rejester;
 using Shop.Presentation.Facade.Users;
+using Shop.Query.Users.DTOs;
+using UAParser;
 
 namespace Shop.Api.Controllers
 {
@@ -22,38 +27,68 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ApiResult<string?>> login(LoginViewModel loginViewModel)
+        public async Task<ApiResult<LoginResultDto?>> Login(LoginViewModel loginViewModel)
         {
             var user = await _userFacad.GetUserByPhoneNumber(loginViewModel.PhoneNumber);
-            if (true)
+            if (user == null)
             {
-                var result= OperationResult<string>.Error("کاربری با مشخصات وارد شده یافت نشد");
+                var result = OperationResult<LoginResultDto>.Error("کاربری با مشخصات وارد شده یافت نشد");
                 return CommandResult(result);
             }
+
             if (Sha256Hasher.IsCompare(user.Password, loginViewModel.Password) == false)
             {
                 var result = OperationResult<LoginResultDto>.Error("کاربری با مشخصات وارد شده یافت نشد");
                 return CommandResult(result);
             }
-            
-            if (user.IsActive==false)
+
+            if (user.IsActive == false)
             {
-                var result = OperationResult<string>.Error("حساب کاربری شما غیر فعال است");
+                var result = OperationResult<LoginResultDto>.Error("حساب کاربری شما غیرفعال است");
                 return CommandResult(result);
             }
             var loginResult = await AddTokenAndGenerateJwt(user);
             return CommandResult(loginResult);
         }
 
-        [HttpPost("rejister")]
-        public async Task<ApiResult> Rejister(RejisterViewModel rejister)
-        {
-            var command = new RegisterUserCommand
-                (rejister.PhoneNumber,rejister.Password);
-            var result = await _userFacad.RegisterUser(command);
 
+            [HttpPost("register")]
+        public async Task<ApiResult> Register(RegisterViewModel register)
+        {
+            var command = new RegisterUserCommand(new PhoneNumber(register.PhoneNumber),
+                register.Password);
+            var result = await _userFacad.RegisterUser(command);
             return CommandResult(result);
         }
+
+        private async Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateJwt(UserDto user)
+        {
+            var uaParser = Parser.GetDefault();
+            var header = HttpContext.Request.Headers["user-agent"].ToString();
+            var device = "windows";
+            if (header != null)
+            {
+                var info = uaParser.Parse(header);
+                device = $"{info.Device.Family}/{info.OS.Family} {info.OS.Major}.{info.OS.Minor} - {info.UA.Family}";
+            }
+
+            var token = JwtTokenBuilder.BuildToken(user, _configuration);
+            var refreshToken = Guid.NewGuid().ToString();
+
+            var hashJwt = Sha256Hasher.Hash(token);
+            var hashRefreshToken = Sha256Hasher.Hash(refreshToken);
+
+            var tokenResult = await _userFacad.AddToken(new AddUserTokenCommand(user.Id, hashJwt, hashRefreshToken, DateTime.Now.AddDays(7), DateTime.Now.AddDays(8), device));
+            if (tokenResult.Status != OperationResultStatus.Success)
+                return OperationResult<LoginResultDto?>.Error();
+
+            return OperationResult<LoginResultDto?>.Success(new LoginResultDto()
+            {
+                Token = token,
+                RefreshToken = refreshToken
+            });
+        }
+
     }
 
     

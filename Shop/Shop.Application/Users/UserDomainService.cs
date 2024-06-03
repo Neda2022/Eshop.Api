@@ -17,12 +17,14 @@ namespace Shop.Application.Users
             _repository = repository;
         }
 
-        public bool IsEmailExist(string email)
+        public bool IsEmailExist(string? email)
         {
             return _repository.Exists(r => r.Email == email);
         }
 
-        public bool PhoneNumberExist(string phoneNumber)
+       
+
+        public bool PhoneNumberIsExist(string phoneNumber)
         {
             return _repository.Exists(r => r.PhoneNumber == phoneNumber);
         }

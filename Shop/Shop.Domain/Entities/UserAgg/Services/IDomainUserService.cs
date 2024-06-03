@@ -8,8 +8,7 @@ namespace Shop.Domain.Entities.UserAgg.Services
 {
     public interface IDomainUserService
     {
-        bool IsEmailExist(string email);    
-        bool PhoneNumberExist(string phoneNumber);  
-
+        bool IsEmailExist(string? email);
+        bool PhoneNumberIsExist(string phoneNumber);
     }
 }

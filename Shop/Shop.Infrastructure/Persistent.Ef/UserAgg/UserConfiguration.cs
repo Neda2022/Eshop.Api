@@ -17,8 +17,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasIndex(b => b.PhoneNumber)
             .IsUnique();
 
-        builder.HasIndex(b => b.Email)
-            .IsUnique();
+        builder.Property(b => b.Email)
+               .IsRequired(false);
 
         builder.Property(b=>b.Name)
             .HasMaxLength(80)
@@ -31,6 +31,25 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(b => b.Password)
             .HasMaxLength(80)
             .IsRequired();
+
+
+        builder.OwnsMany(b => b.Tokens, option =>
+        {
+            option.ToTable("Tokens", "user");
+            option.HasKey(b => b.Id);
+
+            option.Property(b => b.HashJwtToken)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            option.Property(b => b.HashRefreshToken)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            option.Property(b => b.Device)
+                .IsRequired()
+                .HasMaxLength(100);
+        });
 
         builder.OwnsMany(b => b.Addresses, option =>
         {
@@ -86,8 +105,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(b => b.PhoneNumber)
             .HasMaxLength(11)
             .IsRequired();
-        builder.Property(b => b.Email)
-            .HasMaxLength(256)
-            .IsRequired();
+        //builder.Property(b => b.Email)
+        //    .HasMaxLength(256)
+        //    .IsRequired();
     }
 }

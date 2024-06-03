@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Shop.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDatabase : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,22 +52,6 @@ namespace Shop.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Banner", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Banners",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    Link = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Banners", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,7 +134,7 @@ namespace Shop.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     SubCategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    SeconderyCategoryId = table.Column<long>(type: "bigint", nullable: false),
+                    SeconderyCategoryId = table.Column<long>(type: "bigint", nullable: true),
                     Slug = table.Column<string>(type: "varchar(900)", unicode: false, nullable: false),
                     MetaTitle = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
@@ -200,6 +184,22 @@ namespace Shop.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Slider",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Slider", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 schema: "User",
                 columns: table => new
@@ -209,9 +209,10 @@ namespace Shop.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     Family = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -518,13 +519,6 @@ namespace Shop.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Email",
-                schema: "User",
-                table: "Users",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Users_PhoneNumber",
                 schema: "User",
                 table: "Users",
@@ -553,9 +547,6 @@ namespace Shop.Infrastructure.Migrations
                 name: "Banner");
 
             migrationBuilder.DropTable(
-                name: "Banners");
-
-            migrationBuilder.DropTable(
                 name: "Categories",
                 schema: "dbo");
 
@@ -581,6 +572,9 @@ namespace Shop.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "Roles",
                 schema: "user");
+
+            migrationBuilder.DropTable(
+                name: "Slider");
 
             migrationBuilder.DropTable(
                 name: "Specifications",
