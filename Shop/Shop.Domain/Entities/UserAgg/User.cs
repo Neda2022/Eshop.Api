@@ -129,7 +129,14 @@ public class User : AggregateRoot
         token.UserId = Id;
         Tokens.Add(token);
     }
-        
+       
+    public void RemoveToken(long tokenId)
+    {
+        var token = Tokens.FirstOrDefault(f => f.Id == tokenId);
+        if (token == null)
+            throw new InvalidDomainDataException("Invalid Token Id");
+        Tokens.Remove(token);
+    }
     
 
     public void Guard(string phoneNumber, string? email, IDomainUserService domainService)

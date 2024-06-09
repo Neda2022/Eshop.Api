@@ -5,8 +5,8 @@ using Common.Domain.Exceptions;
 
 namespace Shop.Domain.Entities.UserAgg;
 
-    public class UserToken:BaseEntity
-    {
+public class UserToken : BaseEntity
+{
     private UserToken()
     {
 
@@ -20,13 +20,12 @@ namespace Shop.Domain.Entities.UserAgg;
         RefreshTokenExpireDate = refreshTokenExpireDate;
         Device = device;
     }
-    public long UserId { get; set; }
-    public string HashJwtToken { get;  }
-    public string HashRefreshToken { get;  }
-    public DateTime TokenExpireDate { get;}
-    public DateTime RefreshTokenExpireDate { get;}
-    public string Device { get;  }
-
+    public long UserId { get; internal set; }
+    public string HashJwtToken { get; private set; }
+    public string HashRefreshToken { get; private set; }
+    public DateTime TokenExpireDate { get; private set; }
+    public DateTime RefreshTokenExpireDate { get; private set; }
+    public string Device { get; private set; }
 
 
     public void Guard(string hashJwtToken, string hashRefreshToken, DateTime tokenExpireDate, DateTime refreshTokenExpireDate, string device)
@@ -41,4 +40,3 @@ namespace Shop.Domain.Entities.UserAgg;
             throw new InvalidDomainDataException("Invalid RefreshToken ExpireDate");
     }
 }
-

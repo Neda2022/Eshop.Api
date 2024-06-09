@@ -55,7 +55,7 @@ var app = builder.Build();
 
 
 app.UseHttpsRedirection();
-
+app.UseCors("ShopApi");
 
 app.UseAuthorization();
 app.UseApiCustomExceptionHandler();
