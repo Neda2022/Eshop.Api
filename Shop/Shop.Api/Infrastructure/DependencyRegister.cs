@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Shop.Api.Infrastructure.JwtUtil;
+using System.Runtime.CompilerServices;
 
 namespace Shop.Api.Infrastructure
 {
@@ -7,6 +8,7 @@ namespace Shop.Api.Infrastructure
         public static void RegisterApiDependency(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MapperProfile).Assembly);
+            services.AddTransient<CustomJwtValidation>();
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "ShopApi",

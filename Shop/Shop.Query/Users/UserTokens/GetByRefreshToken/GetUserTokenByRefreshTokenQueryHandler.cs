@@ -4,9 +4,9 @@ using Dapper;
 using Shop.Infrastructure.Persistent.Dapper;
 using Shop.Query.Users.DTOs;
 
-namespace Shop.Query.Users.UserTokens;
+namespace Shop.Query.Users.UserTokens.GetByRefreshToken;
 
-internal class GetUserTokenByRefreshTokenQueryHandler : IQueryHandler<GetUserTokenByRefreshTokenQuery, UserTokenDto?>
+internal class GetUserTokenByRefreshTokenQueryHandler : IQueryHandler<GetUserTokenByJwtToken, UserTokenDto?>
 {
     private readonly DapperContext _dapperContext;
 
@@ -15,7 +15,7 @@ internal class GetUserTokenByRefreshTokenQueryHandler : IQueryHandler<GetUserTok
         _dapperContext = dapperContext;
     }
 
-    public async Task<UserTokenDto?> Handle(GetUserTokenByRefreshTokenQuery request, CancellationToken cancellationToken)
+    public async Task<UserTokenDto?> Handle(GetUserTokenByJwtToken request, CancellationToken cancellationToken)
     {
         using var connection = _dapperContext.CreateConnection();
         var sql = $"SELECT TOP(1) * FROM {_dapperContext.UserTokens} Where HashRefreshToken=@hashRefreshToken";

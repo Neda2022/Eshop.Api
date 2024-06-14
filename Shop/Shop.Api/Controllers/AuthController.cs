@@ -2,6 +2,8 @@
 using Common.Application.SecurityUtil;
 using Common.Asp.NetCore;
 using Common.Domain.ValueObjects;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.JwtUtil;
@@ -83,7 +85,18 @@ namespace Shop.Api.Controllers
             var loginResult = await AddTokenAndGenerateJwt(user);
             return CommandResult(loginResult);
         }
+        [Authorize]
+        [HttpDelete("logout")]
+        public async Task<ApiResult> Logout()
+        {
+            var token = await HttpContext.GetTokenAsync("access_token");
+            var result = await _userFacad.GetUserTokenByJwtToken(token);
+            if (result == null)
+                return CommandResult(OperationResult.NotFound());
 
+            await _userFacad.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
+            return CommandResult(OperationResult.Success());
+        }
         private async Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateJwt(UserDto user)
         {
             var uaParser = Parser.GetDefault();

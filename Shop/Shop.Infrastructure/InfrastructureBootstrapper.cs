@@ -35,7 +35,9 @@ public class InfrastructureBootstrapper
         services.AddTransient<ISellerRepository, SellerRepository>();
         services.AddTransient<IBannerRepository, BannerRepository>();
         services.AddTransient<ISliderRepository, SliderRepository>();
-       // services.AddTransient<IShippingMethodRepository, ShippingMethodRepository>();
+
+
+        // services.AddTransient<IShippingMethodRepository, ShippingMethodRepository>();
         services.AddTransient<DapperContext>(_=> new DapperContext(connectionString));
         services.AddTransient(_ => new DapperContext(connectionString));
         services.AddDbContext<ShopContext>(option =>

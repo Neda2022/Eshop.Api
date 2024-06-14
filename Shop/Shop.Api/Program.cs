@@ -10,6 +10,7 @@ using Common.Asp.NetCore.Middlewares;
 using Shop.Api.Infrastructure.JwtUtil;
 using Microsoft.AspNetCore.Mvc;
 using Common.Asp.NetCore;
+using Shop.Api.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,12 +40,17 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")  ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-;
+
 
 builder.Services.RegisterShopDependency(connectionString);
+builder.Services.RegisterApiDependency();
+
+
 CommonBootstrapper.Init(builder.Services);
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddJwtAuthentication(builder.Configuration);
+
+
 var app = builder.Build();
 
 

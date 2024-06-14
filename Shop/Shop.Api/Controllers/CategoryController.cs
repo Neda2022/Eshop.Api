@@ -1,5 +1,6 @@
 ﻿using Common.Application;
 using Common.Asp.NetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Categories.AddChild;
 using Shop.Application.Categories.Create;
@@ -39,7 +40,7 @@ namespace Shop.Api.Controllers
             var result = await _categoryFacade.GetCategoryByParantIdQuery(parentId);
             return QueryResult(result);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<ApiResult<long>> CreateCategory(CreateCategoryCommand command)
         {

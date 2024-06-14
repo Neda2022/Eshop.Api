@@ -23,6 +23,8 @@ public interface IUserFacad
     Task<UserDto?> GetUserByPhoneNumber(string phoneNumber);
     Task<UserDto?> GetUserById(long userId);
     Task<UserTokenDto?> GetUserTokenByRefreshToken(string refreshToken);
+    Task<UserTokenDto?> GetUserTokenByJwtToken(string jwtToken);
+
 
     Task<UserFilterResult> GetUserByFilter(UserFilterParams filterParams);
 }
