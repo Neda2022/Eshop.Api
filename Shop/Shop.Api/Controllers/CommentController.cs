@@ -1,15 +1,18 @@
 ﻿using Common.Asp.NetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.Security;
 using Shop.Application.Comments.ChangeStatus;
 using Shop.Application.Comments.Create;
 using Shop.Application.Comments.Edit;
+using Shop.Domain.Entities.RoleAgg.Enums;
 using Shop.Presentation.Facade.Comments;
 using Shop.Query.Comments.DTos;
 
 namespace Shop.Api.Controllers
 {
-  
+
     public class CommentController : ApiController
     {
 
@@ -20,6 +23,7 @@ namespace Shop.Api.Controllers
             _commentFacad = commentFacad;
         }
 
+        [PermissionChecker(Permission.Comment_Managment)]
         [HttpGet]
         public async Task<ApiResult<CommentFilterResult>> GetCommentByFilter([FromQuery] CommentFilterParams filter)
         {
@@ -28,8 +32,9 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
 
+        [PermissionChecker(Permission.Comment_Managment)]
         [HttpGet("{commentId}")]
-        public async Task<ApiResult<CommentDto?>> GetCommentByFilter(long commentId)
+        public async Task<ApiResult<CommentDto?>> GetCommentById(long commentId)
         {
 
             var result = await _commentFacad.GetCommentnById(commentId);
@@ -37,14 +42,17 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResult> GetCommentByFilter(CreateCommentCommand command)
+        [Authorize]
+        public async Task<ApiResult> CreateComment(CreateCommentCommand command)
         {
 
             var result = await _commentFacad.CreateComment(command);
             return CommandResult(result);
         }
 
+
         [HttpPut]
+        [Authorize]
         public async Task<ApiResult> EditComment(EditCommentCommand command)
         {
 
@@ -53,6 +61,8 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPut("ChangeStatus")]
+        [PermissionChecker(Permission.Comment_Managment)]
+
         public async Task<ApiResult> ChangeCommentStatus(ChangeCommentStatusCommand command)
         {
 

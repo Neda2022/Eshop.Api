@@ -1,14 +1,18 @@
 ﻿using Common.Asp.NetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.Security;
 using Shop.Application.SiteEntities.Sliders.Create;
 using Shop.Application.SiteEntities.Sliders.Edit;
+using Shop.Domain.Entities.RoleAgg.Enums;
 using Shop.Presentation.Facade.SiteEntities.Slider;
 using Shop.Query.SiteEntities.Sliders.DTOs;
 
 namespace Shop.Api.Controllers
 {
-  
+    [PermissionChecker(Permission.CRUD_Slider)]
+
     public class SliderController : ApiController
     {
         private readonly ISliderFacad _sliderFacad;
@@ -17,7 +21,7 @@ namespace Shop.Api.Controllers
         {
             _sliderFacad = sliderFacad;
         }
-
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ApiResult<List<SliderDto>>> GetList()
         {

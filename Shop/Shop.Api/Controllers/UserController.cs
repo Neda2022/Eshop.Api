@@ -2,14 +2,17 @@
 using Common.Asp.NetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.Security;
 using Shop.Application.Users.Create;
 using Shop.Application.Users.Edit;
+using Shop.Domain.Entities.RoleAgg.Enums;
 using Shop.Presentation.Facade.Users;
 using Shop.Query.Users.DTOs;
 
 namespace Shop.Api.Controllers
 {
-  
+    [PermissionChecker(Permission.User_Managment)]
+
     public class UserController : ApiController
     {
         private readonly IUserFacad _userFacad;

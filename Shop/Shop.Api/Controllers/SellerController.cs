@@ -1,6 +1,8 @@
 ﻿using Common.Asp.NetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Api.Infrastructure.Security;
 using Shop.Application.Sellers.AddInventory;
 using Shop.Application.Sellers.Create;
 using Shop.Application.Sellers.Edit;
@@ -25,6 +27,8 @@ namespace Shop.Api.Controllers
         }
 
         [HttpGet]
+        [PermissionChecker(Permission.Edit_Inventory)]
+
         public async Task<ApiResult<SellerFilterResult>> GetSeller(SellerFilterParam filterParam)
         {
             var result = await _sellerFacad.GetSellersByFilter(filterParam);
@@ -32,6 +36,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ApiResult<SellerDto?>> GetSellerById(long sellerId)
         {
             var result = await _sellerFacad.GetSellerById(sellerId);
@@ -40,6 +45,8 @@ namespace Shop.Api.Controllers
 
 
         [HttpPost]
+        [PermissionChecker(Permission.Seller_Managment)]
+
         public async Task<ApiResult> CreateSeller(CreateSellerCommand command)
         {
             var result = await _sellerFacad.CreateSeller(command);
@@ -47,6 +54,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPut]
+        [PermissionChecker(Permission.Seller_Managment)]
 
         public async Task<ApiResult> EditSeller(EditSellerCommand command)
         {
@@ -55,6 +63,8 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPost("Inventory")]
+        [PermissionChecker(Permission.Add_Inventory)]
+
         public async Task<ApiResult> AddInventory(AddSellerInventoryCommand command)
         {
             var result = await _inventoryFacad.AddInventory(command);
@@ -62,6 +72,8 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPut("Inventory")]
+        [PermissionChecker(Permission.Edit_Inventory)]
+
         public async Task<ApiResult> EditInventory(EditInventoryCommand command)
         {
             var result = await _inventoryFacad.EditInventory(command);
