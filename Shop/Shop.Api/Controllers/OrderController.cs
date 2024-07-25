@@ -23,7 +23,7 @@ namespace Shop.Api.Controllers
         {
             _orderFacad = orderFacad;
         }
-        [PermissionChecker(Permission.Order_Managment)]
+        [PermissionChecker(Permission.Order_Management)]
         [HttpGet]
         public async Task<ApiResult<OrderFilterResult>> GetOrderByFilter([FromQuery]OrderFilterParam filterParams)
         {

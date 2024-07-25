@@ -12,6 +12,8 @@ public interface ISellerFacad
     Task<OperationResult> EditSeller(EditSellerCommand command);
 
     Task<SellerDto?> GetSellerById(long sellerId);
+    Task<SellerDto?> GetSellerByUserId(long UserId);
+
     Task<SellerFilterResult> GetSellersByFilter(SellerFilterParam filterParams);
 }
 

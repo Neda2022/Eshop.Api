@@ -11,7 +11,7 @@ using Shop.Query.Users.DTOs;
 
 namespace Shop.Api.Controllers
 {
-    [PermissionChecker(Permission.User_Managment)]
+    [PermissionChecker(Permission.User_Management)]
 
     public class UserController : ApiController
     {
@@ -38,6 +38,12 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
 
+        [HttpGet("Current")]
+        public async Task<ApiResult<UserDto>> GetCurrentUser()
+        {
+            var result = await _userFacad.GetUserById(User.GetUserId());
+            return QueryResult(result);
+        }
         [HttpPost]
         public async Task<ApiResult> Create(CreateUserCommand command)
         {

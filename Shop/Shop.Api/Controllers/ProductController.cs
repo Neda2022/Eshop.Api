@@ -31,6 +31,13 @@ namespace Shop.Api.Controllers
             return QueryResult( await _productFacad.GetProductsByFilter(filterParam));
         }
 
+        [AllowAnonymous]
+        [HttpGet("Shop")]
+        public async Task<ApiResult<ProductShopResult>> GetProductForShopFilter([FromQuery] ProductShopFilterParam filterParams)
+        {
+            return QueryResult(await _productFacad.GetProductsForShop(filterParams));
+        }
+
         [HttpGet("{productId}")]
         public async Task<ApiResult<ProductDto?>> GetProductById(long productId)
         {

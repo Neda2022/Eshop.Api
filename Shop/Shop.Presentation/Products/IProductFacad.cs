@@ -16,7 +16,7 @@ public interface IProductFacad
     Task<OperationResult> EditProduct(EditProductCommand command);
     Task<OperationResult> AddImage(AddProductImageCommand command);
     Task<OperationResult> RemoveImage(RemoveProductImageCommand command);
-
+    Task<ProductShopResult> GetProductsForShop(ProductShopFilterParam filterParams);
     Task<ProductDto?> GetProductById(long productId);
     Task<ProductDto?> GetProductBySlug(string slug);
     Task<ProductFilterResult> GetProductsByFilter(ProductFilterParam filterParams);

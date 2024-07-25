@@ -39,13 +39,13 @@ namespace Shop.Api.Controllers
         [Authorize]
         public async Task<ApiResult<SellerDto?>> GetSellerById(long sellerId)
         {
-            var result = await _sellerFacad.GetSellerById(sellerId);
+                var result = await _sellerFacad.GetSellerById(sellerId);
             return QueryResult(result);
         }
 
 
         [HttpPost]
-        [PermissionChecker(Permission.Seller_Managment)]
+        [PermissionChecker(Permission.Seller_Management)]
 
         public async Task<ApiResult> CreateSeller(CreateSellerCommand command)
         {
@@ -54,7 +54,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPut]
-        [PermissionChecker(Permission.Seller_Managment)]
+        [PermissionChecker(Permission.Seller_Management)]
 
         public async Task<ApiResult> EditSeller(EditSellerCommand command)
         {
@@ -80,7 +80,7 @@ namespace Shop.Api.Controllers
             return CommandResult(result);
         }
 
-        
+
 
     }
 }

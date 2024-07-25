@@ -17,7 +17,7 @@ using UAParser;
 
 namespace Shop.Api.Controllers
 {
-   
+
     public class AuthController : ApiController
     {
         private readonly IConfiguration _configuration;
@@ -55,7 +55,7 @@ namespace Shop.Api.Controllers
         }
 
 
-            [HttpPost("register")]
+        [HttpPost("register")]
         public async Task<ApiResult> Register(RegisterViewModel register)
         {
             var command = new RegisterUserCommand(new PhoneNumber(register.PhoneNumber),
@@ -90,6 +90,7 @@ namespace Shop.Api.Controllers
         public async Task<ApiResult> Logout()
         {
             var token = await HttpContext.GetTokenAsync("access_token");
+         
             var result = await _userFacad.GetUserTokenByJwtToken(token);
             if (result == null)
                 return CommandResult(OperationResult.NotFound());
@@ -97,6 +98,7 @@ namespace Shop.Api.Controllers
             await _userFacad.RemoveToken(new RemoveUserTokenCommand(result.UserId, result.Id));
             return CommandResult(OperationResult.Success());
         }
+        
         private async Task<OperationResult<LoginResultDto?>> AddTokenAndGenerateJwt(UserDto user)
         {
             var uaParser = Parser.GetDefault();
@@ -127,5 +129,7 @@ namespace Shop.Api.Controllers
 
     }
 
-    
+
 }
+    
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -13,8 +14,10 @@ public static class JwtAuthenticationConfig
             option.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
             option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
         }).AddJwtBearer(option =>
         {
+            option.IncludeErrorDetails = true;
             option.TokenValidationParameters = new TokenValidationParameters()
             {
                 IssuerSigningKey =
@@ -24,7 +27,8 @@ public static class JwtAuthenticationConfig
                 ValidateLifetime = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
-                ValidateAudience = true
+                ValidateAudience = true,
+
             };
             option.SaveToken = true;
             option.Events = new JwtBearerEvents()

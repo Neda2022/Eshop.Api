@@ -23,7 +23,7 @@ namespace Shop.Api.Controllers
             _commentFacad = commentFacad;
         }
 
-        [PermissionChecker(Permission.Comment_Managment)]
+        [PermissionChecker(Permission.Comment_Management)]
         [HttpGet]
         public async Task<ApiResult<CommentFilterResult>> GetCommentByFilter([FromQuery] CommentFilterParams filter)
         {
@@ -32,7 +32,7 @@ namespace Shop.Api.Controllers
             return QueryResult(result);
         }
 
-        [PermissionChecker(Permission.Comment_Managment)]
+        [PermissionChecker(Permission.Comment_Management)]
         [HttpGet("{commentId}")]
         public async Task<ApiResult<CommentDto?>> GetCommentById(long commentId)
         {
@@ -61,7 +61,7 @@ namespace Shop.Api.Controllers
         }
 
         [HttpPut("ChangeStatus")]
-        [PermissionChecker(Permission.Comment_Managment)]
+        [PermissionChecker(Permission.Comment_Management)]
 
         public async Task<ApiResult> ChangeCommentStatus(ChangeCommentStatusCommand command)
         {

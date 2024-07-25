@@ -11,7 +11,7 @@ using Shop.Query.Roles.DTOs;
 
 namespace Shop.Api.Controllers
 {
-    [PermissionChecker(Permission.Role_Managment)]
+    [PermissionChecker(Permission.Role_Management)]
 
     public class RoleController : ApiController
     {

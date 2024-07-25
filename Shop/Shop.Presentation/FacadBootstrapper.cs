@@ -1,4 +1,5 @@
 ﻿
+using AspNetCoreRateLimit;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.Presentation.Facade.Categories;
 using Shop.Presentation.Facade.Comments;
@@ -29,7 +30,7 @@ public static class FacadBootstrapper
         services.AddScoped<IUserFacad, UserFacad>();
         services.AddScoped<IUserAddressFacade, UserAddressFacade>();
         services.AddScoped<ISellerInventoryFacad, SellerInventoryFacad>();
-
+      
 
 
 

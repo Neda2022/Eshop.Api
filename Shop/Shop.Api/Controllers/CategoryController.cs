@@ -13,7 +13,7 @@ using System.Net;
 
 namespace Shop.Api.Controllers
 {
-    [PermissionChecker(Permission.Category_Managment)]
+    [PermissionChecker(Permission.Category_Management)]
 
     public class CategoryController : ApiController
     {

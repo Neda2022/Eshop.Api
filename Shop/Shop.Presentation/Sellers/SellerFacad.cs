@@ -3,9 +3,11 @@ using Common.Application;
 using MediatR;
 using Shop.Application.Sellers.Create;
 using Shop.Application.Sellers.Edit;
+using Shop.Domain.Entities.SellerAgg;
 using Shop.Query.Sellers.DTOs;
 using Shop.Query.Sellers.GetByFilter;
 using Shop.Query.Sellers.GetById;
+using Shop.Query.Sellers.GetByUserId;
 
 namespace Shop.Presentation.Facade.Sellers;
 
@@ -34,7 +36,10 @@ public class SellerFacad: ISellerFacad
 
     }
 
-    
+    public async Task<SellerDto?> GetSellerByUserId(long UserId)
+    {
+        return await _mediator.Send(new GetSellerByUserIdQuery(UserId));
+    }
 
     public async Task<SellerFilterResult> GetSellersByFilter(SellerFilterParam filterParams)
     {

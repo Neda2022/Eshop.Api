@@ -13,8 +13,8 @@ namespace Shop.Api.Infrastructure.Security;
 
 public class PermissionChecker : AuthorizeAttribute, IAsyncAuthorizationFilter
 {
-    private  IUserFacad _userFacade;
-    private  IRoleFacad _roleFacade;
+    private IUserFacad _userFacade;
+    private IRoleFacad _roleFacade;
     private readonly Permission _permission;
 
     public PermissionChecker(Permission permission)
@@ -28,7 +28,6 @@ public class PermissionChecker : AuthorizeAttribute, IAsyncAuthorizationFilter
 
         _userFacade = context.HttpContext.RequestServices.GetRequiredService<IUserFacad>();
         _roleFacade = context.HttpContext.RequestServices.GetRequiredService<IRoleFacad>();
-
         if (context.HttpContext.User.Identity.IsAuthenticated)
         {
             if (await UserHasPermission(context) == false)
